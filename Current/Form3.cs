@@ -11,64 +11,79 @@ namespace BensCRS
 {
     public partial class Form3 : Form
     {
-        int state = 0;
+        enum FacFormState
+        { 
+            allcourses,
+            mycourses,
+            myadvisees,
+            studentsched
+        }
+
+
+        //int state = 0; //Will eventually replace this with a FacFormState, but other problems first. 
+        FacFormState FormState; 
         UserFaculty Me;
         List<UserStudent> MyStudents = new List<UserStudent>();
         List<Course> stdCourses = new List<Course>(); 
         List<UserStudent> Stud;
         UserStudent little;
-        List<Course> Crs = new List<Course>(); 
+        List<Course> Crs = new List<Course>();
+
+        public Form3(List<UserStudent> S, UserFaculty F, List<Course> C)
+            :this(S,F,C,0)
+        { 
+        }
 
         public Form3(List<UserStudent> S, UserFaculty F, List<Course> C ,int number)
         {
+            InitializeComponent();
             Me = F;
             Stud = S;
             Crs = C; 
-            state = number;
-
-            InitializeComponent();
-
-            if (state == 0)
+            
+            switch (number)
             {
-                Text = Me.UserName + " is viewing the Course List."; 
-                AllSchedule(); 
-            }
-            if (state == 1)
-            {
-                Text = Me.UserName + " is viewing his/her courses taught.";
-                Sbutton.Text = "View the full Course Schedule"; 
-                MeSchedule(); 
+                case 1: FormState = FacFormState.mycourses;
+                        Text = Me.UserName + " is viewing his/her courses taught.";
+                        Sbutton.Text = "View the full Course Schedule"; 
+                        MeSchedule(); 
+                    break;
+
+                case 2: FormState = FacFormState.myadvisees;
+                        Text = Me.UserName + " is viewing his/her Advising screen.";
+                        AButton.Text = "Back";
+                        ADList();
+                    break;
+
+                default: FormState = FacFormState.allcourses;
+                         Text = Me.UserName + " is viewing the Course List.";
+                         AllSchedule();
+                    break;
             }
 
-            if (state == 2)
-            {
-                Text = Me.UserName + " is viewing his/her Advising screen.";
-                ADList();
-            }
+
 
         }
         
-        public Form3(List<UserStudent> S, UserStudent s,  UserFaculty F, List<Course> C, int number)
+        public Form3(List<UserStudent> S, UserStudent s,  UserFaculty F, List<Course> C)
         {
             Me = F;
             Stud = S;
             Crs = C;
-            state = number;
             little = s;
 
-            if (state == 3)
-            {
+            InitializeComponent(); 
+
                 //dataGridView1.Hide();
 
-                foreach (Course C0 in Crs)
-                    if (little.MyCourses.Contains(C0.CourseName))
-                        stdCourses.Add(C0);
+            foreach (Course C0 in Crs)
+                if (little.MyCourses.Contains(C0.CourseName))
+                    stdCourses.Add(C0);
 
-                dataGridView1.DataSource = stdCourses;
-                //dataGridView1.Refresh();
-                //dataGridView1.Show(); 
-            
-            }
+            dataGridView1.DataSource = stdCourses;
+            //dataGridView1.Refresh();
+            //dataGridView1.Show(); 
+
         }
 
         
@@ -104,21 +119,21 @@ namespace BensCRS
 
         private void Sbutton_Click(object sender, EventArgs e)
         {
-            if (state == 0)
+            if (FormState == FacFormState.allcourses)
             {
                 Form3 f = new Form3(Stud, Me, Crs, 1);
                 f.Show();
                 this.Close();
             }
-            if (state == 1)
+            if (FormState == FacFormState.mycourses)
             {
                 Form3 f = new Form3(Stud, Me, Crs, 0);
                 f.Show();
                 this.Close(); 
             }
-            if (state == 2)
+            if (FormState == FacFormState.myadvisees)
             {
-                Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],Me, Crs,3);
+                Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],Me, Crs);
                 f.Show();
                 this.Close();
             }
@@ -126,20 +141,20 @@ namespace BensCRS
 
         private void AButton_Click(object sender, EventArgs e)
         {
-            if (state == 0)
+            if (FormState == FacFormState.allcourses)
             {
                 Form3 advf = new Form3(Stud, Me, Crs, 2);
                 advf.Show();
                 this.Close(); 
             }
 
-            if (state == 3)
+            if (FormState == FacFormState.studentsched)
             {
                 Form3 dflt = new Form3(Stud, Me, Crs, 0);
                 dflt.Show();
                 this.Close();
             }
-            if (state == 2)
+            if (FormState == FacFormState.myadvisees)
             {
                 Form3 dflt = new Form3(Stud, Me, Crs, 0);
                 dflt.Show();
