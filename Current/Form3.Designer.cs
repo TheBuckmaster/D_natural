@@ -32,6 +32,7 @@
             this.LButton = new System.Windows.Forms.Button();
             this.AButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.RareButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,11 +76,22 @@
             this.dataGridView1.Size = new System.Drawing.Size(785, 227);
             this.dataGridView1.TabIndex = 3;
             // 
+            // RareButton
+            // 
+            this.RareButton.Location = new System.Drawing.Point(333, 240);
+            this.RareButton.Name = "RareButton";
+            this.RareButton.Size = new System.Drawing.Size(115, 22);
+            this.RareButton.TabIndex = 4;
+            this.RareButton.Text = "View Current";
+            this.RareButton.UseVisualStyleBackColor = true;
+            this.RareButton.Click += new System.EventHandler(this.RareButton_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 275);
+            this.Controls.Add(this.RareButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.AButton);
             this.Controls.Add(this.LButton);
@@ -97,6 +109,7 @@
         private System.Windows.Forms.Button LButton;
         private System.Windows.Forms.Button AButton;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button RareButton;
 
     }
 }

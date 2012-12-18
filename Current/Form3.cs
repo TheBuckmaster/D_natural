@@ -17,7 +17,8 @@ namespace BensCRS
             mycourses,
             myadvisees,
             studentsched,
-            myfutstudents
+            myfutstudents,
+            studentcurrent
         }
 
 
@@ -47,7 +48,8 @@ namespace BensCRS
                 case 1: FormState = FacFormState.mycourses;
                         Text = Me.UserName + " is viewing his/her courses taught.";
                         AButton.Text = "View future Students";
-                        Sbutton.Text = "View the full Course Schedule"; 
+                        Sbutton.Text = "View the full Course Schedule";
+                        RareButton.Hide();
                         MeSchedule(); 
                     break;
 
@@ -61,12 +63,15 @@ namespace BensCRS
                         Text = Me.UserName + " is viewing his/her Future students.";
                         AButton.Text = "Back";
                         Sbutton.Hide();
+                        RareButton.Hide();
                         FutStdList();
                     break;
 
                 default: FormState = FacFormState.allcourses;
                          Text = Me.UserName + " is viewing the Course List.";
+                         RareButton.Hide();
                          AllSchedule();
+
                     break;
             }
 
@@ -74,22 +79,48 @@ namespace BensCRS
 
         }
         
-        public Form3(List<UserStudent> S, UserStudent s,  UserFaculty F, List<Course> C)
+        public Form3(List<UserStudent> S, UserStudent s,  UserFaculty F, List<Course> C, int i)
         {
             Me = F;
             Stud = S;
             Crs = C;
             little = s;
 
-            InitializeComponent(); 
+
+            if (i == 0)
+                FormState = FacFormState.studentsched;
+            if (i == 1)
+                FormState = FacFormState.studentcurrent;
+
+            InitializeComponent();
+            RareButton.Hide();
 
                 //dataGridView1.Hide();
+            if (FormState == FacFormState.studentsched)
+            {
+                foreach (Course C0 in Crs)
+                    if (little.MyCourses.Contains(C0.CourseName))
+                        stdCourses.Add(C0);
+                Sbutton.Hide();
+                AButton.Text = "Back";
+                dataGridView1.DataSource = stdCourses;
+            }
+            if (FormState == FacFormState.studentcurrent)
+            {
+                List<PastCourse> relevant = new List<PastCourse>();
+                foreach (PastCourse P in little.MyPastCourses)
+                {
+                    if (P.Term == "F12")
+                    {
+                        relevant.Add(P);
+                    }                 
+                }
 
-            foreach (Course C0 in Crs)
-                if (little.MyCourses.Contains(C0.CourseName))
-                    stdCourses.Add(C0);
+                dataGridView1.DataSource = relevant;     
+            
+            }
 
-            dataGridView1.DataSource = stdCourses;
+
             //dataGridView1.Refresh();
             //dataGridView1.Show(); 
 
@@ -127,7 +158,6 @@ namespace BensCRS
 
         private void FutStdList()
         {
-            List<UserStudent> FutureStudents = new List<UserStudent>();
             List<String> UNs = Me.futStudentFinder(Crs);
 
             foreach (UserStudent student in Stud)
@@ -135,11 +165,11 @@ namespace BensCRS
                 foreach (String fsun in UNs)
                 {
                     if (student.UserName == fsun)
-                        FutureStudents.Add(student);
+                        MyStudents.Add(student);
                 }
             }
 
-            dataGridView1.DataSource = FutureStudents;
+            dataGridView1.DataSource = MyStudents;
         }
 
 
@@ -159,7 +189,7 @@ namespace BensCRS
             }
             if (FormState == FacFormState.myadvisees)
             {
-                Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],Me, Crs);
+                Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],Me, Crs,0);
                 f.Show();
                 this.Close();
             }
@@ -175,9 +205,9 @@ namespace BensCRS
                 this.Close(); 
             }
 
-            if (FormState == FacFormState.studentsched)
+            if ((FormState == FacFormState.studentsched) || (FormState == FacFormState.studentcurrent))
             {
-                Form3 dflt = new Form3(Stud, Me, Crs, 0);
+                Form3 dflt = new Form3(Stud, Me, Crs, 2);
                 dflt.Show();
                 this.Close();
             }
@@ -205,6 +235,16 @@ namespace BensCRS
 
         private void LButton_Click(object sender, EventArgs e)
         {
+            this.Close(); 
+        }
+
+        private void RareButton_Click(object sender, EventArgs e)
+        {
+            //Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],
+            //    Me, Crs, 1);
+            Form3 f = new Form3(Stud, MyStudents[0],
+                Me, Crs, 1);
+            f.Show();
             this.Close(); 
         }
 
