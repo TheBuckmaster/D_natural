@@ -43,6 +43,28 @@ namespace BensCRS
                     MyClasses.Add(c.CourseName);
             }
         }
+
+        public List<String> futStudentFinder(List<Course> crs)
+        {
+            List<String> Students = new List<String>();
+            List<String> someStudents = new List<String>();
+            classesFinder(crs);
+            foreach (Course C in crs)
+            {
+                if (MyClasses.Contains(C.CourseName))
+                {
+                    someStudents = C.GetStudentUNs();
+                    foreach (String name in someStudents)
+                    {
+                        if(!Students.Contains(name))
+                        {
+                            Students.Add(name);
+                        }
+                    }
+                }
+            }
+            return Students;
+        }
     }
 
     public class UserStudent
@@ -251,6 +273,11 @@ namespace BensCRS
         {
             if (studentNames.Contains(S.UserName))
                 studentNames.Remove(S.UserName);
+        }
+
+        public List<String> GetStudentUNs()
+        {
+            return studentNames; 
         }
 
         public bool checkConflict(Course C)

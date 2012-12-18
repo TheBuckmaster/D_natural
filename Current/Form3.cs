@@ -16,7 +16,8 @@ namespace BensCRS
             allcourses,
             mycourses,
             myadvisees,
-            studentsched
+            studentsched,
+            myfutstudents
         }
 
 
@@ -45,6 +46,7 @@ namespace BensCRS
             {
                 case 1: FormState = FacFormState.mycourses;
                         Text = Me.UserName + " is viewing his/her courses taught.";
+                        AButton.Text = "View future Students";
                         Sbutton.Text = "View the full Course Schedule"; 
                         MeSchedule(); 
                     break;
@@ -53,6 +55,13 @@ namespace BensCRS
                         Text = Me.UserName + " is viewing his/her Advising screen.";
                         AButton.Text = "Back";
                         ADList();
+                    break;
+
+                case 4: FormState = FacFormState.myfutstudents;
+                        Text = Me.UserName + " is viewing his/her Future students.";
+                        AButton.Text = "Back";
+                        Sbutton.Hide();
+                        FutStdList();
                     break;
 
                 default: FormState = FacFormState.allcourses;
@@ -116,6 +125,23 @@ namespace BensCRS
         
         }
 
+        private void FutStdList()
+        {
+            List<UserStudent> FutureStudents = new List<UserStudent>();
+            List<String> UNs = Me.futStudentFinder(Crs);
+
+            foreach (UserStudent student in Stud)
+            { 
+                foreach (String fsun in UNs)
+                {
+                    if (student.UserName == fsun)
+                        FutureStudents.Add(student);
+                }
+            }
+
+            dataGridView1.DataSource = FutureStudents;
+        }
+
 
         private void Sbutton_Click(object sender, EventArgs e)
         {
@@ -137,6 +163,7 @@ namespace BensCRS
                 f.Show();
                 this.Close();
             }
+
         }
 
         private void AButton_Click(object sender, EventArgs e)
@@ -158,8 +185,21 @@ namespace BensCRS
             {
                 Form3 dflt = new Form3(Stud, Me, Crs, 0);
                 dflt.Show();
+                this.Close();
+            }
+
+            if (FormState == FacFormState.myfutstudents)
+            {
+                Form3 f = new Form3(Stud, Me, Crs, 1);
+                f.Show();
+                this.Close();
+            }
+
+            if (FormState == FacFormState.mycourses)
+            {
+                Form3 futstd = new Form3(Stud, Me, Crs, 4);
+                futstd.Show();
                 this.Close(); 
-            
             }
         }
 
