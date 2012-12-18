@@ -123,9 +123,22 @@ namespace BensCRS
    // <course-name-1:10>S<term-1:3>S<course-credit-1:4>S<grade-1:3>…
    //S<course-name-N:10>S<term-N:3>S<course-credit-N:4>S<grade-N:3>
 
-
-                        PastCourse pst = new PastCourse(term, title, grade, credit);
-                        stud.MyPastCourses.Add(pst);
+                        if (term == "S13")
+                        {
+                            foreach (Course Cn in Courses)
+                            {
+                                if (Cn.CourseName == title)
+                                {
+                                    benutil.AddStudenttoCourse(stud, Cn);
+                                }
+                            }
+                        
+                        }
+                        else
+                        {
+                            PastCourse pst = new PastCourse(term, title, grade, credit);
+                            stud.MyPastCourses.Add(pst);
+                        }
                     }
                     line = filereader.ReadLine();
                 }
