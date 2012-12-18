@@ -32,7 +32,7 @@ namespace BensCRS
             A = ad;
             F = fac;
             S = std;
-
+            UserAdmin a = new UserAdmin("Automated","*****","B","P","B");
             try
             {
                 filereader = new StreamReader("ClassInput.txt");
@@ -129,7 +129,7 @@ namespace BensCRS
                             {
                                 if (Cn.CourseName == title)
                                 {
-                                    benutil.AddStudenttoCourse(stud, Cn);
+                                    benutil.AddStudenttoCourse(stud, Cn, a);
                                 }
                             }
                         
