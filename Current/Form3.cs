@@ -55,7 +55,8 @@ namespace BensCRS
                 case 2: FormState = FacFormState.myadvisees;
                         Text = Me.UserName + " is viewing his/her Advising screen.";
                         AButton.Text = "Back";
-                        RareButton.Text = "View Cur. Grades"; 
+                        RareButton.Text = "Verify Grades";
+                        Sbutton.Text = "Verify Schedule";
                         ADList();
                     break;
 
