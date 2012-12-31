@@ -22,7 +22,6 @@ namespace BensCRS
         }
 
 
-        //int state = 0; //Will eventually replace this with a FacFormState, but other problems first. 
         FacFormState FormState; 
         UserFaculty Me;
         List<UserStudent> MyStudents = new List<UserStudent>();
@@ -56,6 +55,7 @@ namespace BensCRS
                 case 2: FormState = FacFormState.myadvisees;
                         Text = Me.UserName + " is viewing his/her Advising screen.";
                         AButton.Text = "Back";
+                        RareButton.Text = "View Cur. Grades"; 
                         ADList();
                     break;
 
@@ -94,6 +94,7 @@ namespace BensCRS
 
             InitializeComponent();
             RareButton.Hide();
+            Sbutton.Hide();
 
                 //dataGridView1.Hide();
             if (FormState == FacFormState.studentsched)
@@ -101,7 +102,6 @@ namespace BensCRS
                 foreach (Course C0 in Crs)
                     if (little.MyCourses.Contains(C0.CourseName))
                         stdCourses.Add(C0);
-                Sbutton.Hide();
                 AButton.Text = "Back";
                 dataGridView1.DataSource = stdCourses;
             }
@@ -240,9 +240,7 @@ namespace BensCRS
 
         private void RareButton_Click(object sender, EventArgs e)
         {
-            //Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],
-            //    Me, Crs, 1);
-            Form3 f = new Form3(Stud, MyStudents[0],
+            Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],
                 Me, Crs, 1);
             f.Show();
             this.Close(); 
