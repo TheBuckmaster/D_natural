@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace BensCRS
 {
@@ -208,9 +209,11 @@ namespace BensCRS
         public int Students { get { return studentNames.Count; } }
         public string Enrollment { get { return Students + " / " + Seats; } }
         
-        public string BaseClass { get { return coursename.Substring(0, coursename.Length - 3); } }
-        public string Section { get { return coursename.Substring(coursename.Length - 2); } }
+        //public string BaseClass { get { return coursename.Substring(0, coursename.Length - 3); } }
+        //public string Section { get { return coursename.Substring(coursename.Length - 2); } }
 
+        public String Meetingz { get; set; }   
+        
 
         public Course()
         {
@@ -243,7 +246,9 @@ namespace BensCRS
             Instructor = cInst;
             credits = cCred;
             seats = cSeat;
-            makeMeetings(timeblocks); 
+            makeMeetings(timeblocks);
+            Meetingz = showMeetings();
+            //MessageBox.Show(showMeetings().ToString()); 
         
         }
 
@@ -304,11 +309,121 @@ namespace BensCRS
             return false;
         }
 
+        /// <summary>
+        /// Converts the ddttks strings into the appropriate number of correct meetings.
+        /// </summary>
+        /// <param name="ddttks"></param>
         private void makeMeetings(List<String> ddttks)
         {
+            for (int i = 0; i < ddttks.Count; i++)
+            {
+                
+                Meeting nth;
+                string dd = ddttks[i].Substring(0, 2);
+                string tt = ddttks[i].Substring(2, 2);
+                string k = ddttks[i].Substring(4, 1);
 
+                int daysint = int.Parse(dd);
+                int timeint = int.Parse(tt);
+                double timedouble = timeint;
+                string hourstring;
+                string minutestring;
+                string postfix;
+                int halfhours = int.Parse(k);
+
+
+                // turn daysint into adds to Meeting.days
+                nth.days = benutil.MeetingDaysBySwitch(daysint);
+
+                //MessageBox.Show(timedouble.ToString()); 
+                // generate hours and minutes for start time
+                timedouble = timedouble / 2.0;
+                if (timedouble % 1.0 == 0.0)
+                    //On the hour start. 
+                    minutestring = "00"; 
+                else
+                {
+                    timedouble = timedouble - .5;
+                    minutestring = "30";
+                }
+
+                // generate postfix for start time
+                if (timedouble < 12.0)
+                {
+                    postfix = "AM";
+                    if (timedouble == 0.0)
+                        timedouble += 12.0; 
+                }
+                else
+                {
+                    postfix = "PM";
+                    if (timedouble != 12.0)
+                        timedouble -= 12.0;
+                }
+
+                hourstring = timedouble.ToString();
+
+                // note start time
+                nth.time = hourstring + ":" + minutestring + " " + postfix;
+
+                //MessageBox.Show(this.CourseName + " " + nth.time); 
+
+                // generate hours and minutes for end time
+                timedouble = timeint + halfhours;
+                timedouble = timedouble / 2.0;
+                if (timedouble % 1.0 == 0.0)
+                    // on the hour end.
+                    minutestring = "00";
+                else
+                {
+                    timedouble = timedouble - .5; 
+                    minutestring = "30";
+                }
+                
+                if (timedouble < 12.0)
+                {
+                    postfix = "AM";
+                    if (timedouble == 0.0)
+                        timedouble += 12.0;
+                }
+                else
+                {
+                    postfix = "PM";
+                    timedouble -= 12.0; 
+                }
+                hourstring = timedouble.ToString();
+
+
+                // note end time
+                nth.time += " - " + hourstring + ":" + minutestring + " " + postfix;
+
+                //StringBuilder s = new StringBuilder();
+                //foreach (Char C in nth.days)
+                //    s.Append(C);
+                //MessageBox.Show(this.CourseName + " " + s.ToString() + " " + nth.time);
+                Meetings.Add(nth); 
+            }
         }
 
+        private String showMeetings() 
+        {
+            StringBuilder output = new StringBuilder();
+
+            foreach (Meeting M in Meetings)
+            {
+                String A = "";
+                foreach (Char c in M.days)
+                    A += c;
+                A += " ";
+                A += M.time;
+                MessageBox.Show(A); 
+                output.Append(A);
+                output.Append('\n'); 
+            
+            }
+            //MessageBox.Show(output.ToString()); 
+            return output.ToString(); 
+        }
     }
 
     public class PastCourse
