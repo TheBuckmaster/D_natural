@@ -178,6 +178,160 @@ namespace BensCRS
             MessageBox.Show("You are no longer registered for " + C.CourseName + " ."); 
         
         }
+
+        public static List<Char> MeetingDaysBySwitch(int dd)
+        {
+            List<Char> theList = new List<Char>();
+
+            switch (dd)
+            {
+                case 1: theList.Add('M');
+                        break;
+                
+                case 2: theList.Add('T');
+                        break;
+                
+                case 3: theList.Add('M');
+                        theList.Add('T'); 
+                        break;
+                
+                case 4: theList.Add('W'); 
+                        break;
+                
+                case 5: theList.Add('M');
+                        theList.Add('W');
+                        break;
+                
+                case 6: theList.Add('T');
+                        theList.Add('W'); 
+                        break;
+                
+                case 7: theList.Add('M');
+                        theList.Add('T');
+                        theList.Add('W');
+                        break;
+                
+                case 8: theList.Add('H');
+                        break;
+                
+                case 9: theList.Add('M');
+                        theList.Add('H');
+                        break;
+                
+                case 10: theList.Add('T');
+                        theList.Add('H');
+                        break;
+                
+                case 11: theList.Add('M');
+                        theList.Add('T');
+                        theList.Add('H');
+                        break;
+                
+                case 12: theList.Add('W');
+                        theList.Add('H');
+                        break;
+                
+                case 13: theList.Add('M');
+                        theList.Add('W');
+                        theList.Add('H');
+                        break;
+                
+                case 14: theList.Add('T');
+                        theList.Add('W');
+                        theList.Add('H');
+                        break;
+                
+                case 15: theList.Add('M');
+                        theList.Add('T');
+                        theList.Add('W');
+                        theList.Add('H');
+                        break;
+                
+                case 16: theList.Add('F');
+                        break;
+                
+                case 17: theList.Add('M');
+                        theList.Add('F');
+                        break;
+                
+                case 18: theList.Add('T');
+                        theList.Add('F');
+                        break;
+                
+                case 19: theList.Add('M'); 
+                        theList.Add('T');
+                        theList.Add('F');
+                        break;
+                
+                case 20: theList.Add('W');
+                        theList.Add('F');
+                        break;
+                
+                case 21: theList.Add('M');
+                        theList.Add('W');
+                        theList.Add('F');
+                        break;
+                
+                case 22: theList.Add('T');
+                        theList.Add('W');
+                        theList.Add('F');
+                        break;
+                
+                case 23: theList.Add('M');
+                        theList.Add('T');
+                        theList.Add('W');
+                        theList.Add('F');
+                        break;
+                
+                case 24: theList.Add('H');
+                        theList.Add('F');
+                        break;
+                
+                case 25: theList.Add('M'); 
+                        theList.Add('H');
+                        theList.Add('F');
+                        break;
+                
+                case 26: theList.Add('T');
+                        theList.Add('H');
+                        theList.Add('F');
+                        break;
+                
+                case 27: theList.Add('M');
+                        theList.Add('T');
+                        theList.Add('H');
+                        theList.Add('F');
+                        break;
+                
+                case 28: theList.Add('W');
+                        theList.Add('H');
+                        theList.Add('F');
+                        break;
+                
+                case 29: theList.Add('M');
+                        theList.Add('W');
+                        theList.Add('H');
+                        theList.Add('F');
+                        break;
+                
+                case 30: theList.Add('T'); 
+                        theList.Add('W');
+                        theList.Add('H');
+                        theList.Add('F'); 
+                        break;
+                
+                case 31: theList.Add('M');
+                        theList.Add('T'); 
+                        theList.Add('W');
+                        theList.Add('H');
+                        theList.Add('F'); 
+                        break;
+
+                default: break; 
+            }
+            return theList; 
+        
+        }
     }
 
 }
