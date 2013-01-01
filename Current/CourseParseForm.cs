@@ -12,7 +12,6 @@ namespace BensCRS
 {
     public partial class CourseParseForm : Form
     {
-        List<String> timeblocks = new List<string>();
         List<UserAdmin> A = new List<UserAdmin>();
         List<UserFaculty> F = new List<UserFaculty>();
         List<UserStudent> S = new List<UserStudent>();
@@ -40,6 +39,7 @@ namespace BensCRS
                 line = filereader.ReadLine();
                 while (line != null)
                 {
+                    List<String> timeblocks = new List<string>();
                     cName.Text = line.Substring(0, 11).Trim();
                     cTitle.Text = line.Substring(11, 16).Trim();
                     cInst.Text = line.Substring(27, 11).Trim();
@@ -51,10 +51,13 @@ namespace BensCRS
 
                     for (int i = 0; i < numTimes; i++)
                     {
-                        int begin = (0 + (i * 5));
+                        int begin = (0 + (i * 6)); //changed
+                                        // Needed to add one for the space
                         timeblocks.Add(timeline.Substring(begin, 5));
+                        //MessageBox.Show(cName.Text + " " + timeblocks[i]); 
                     }
-
+                     
+ 
                     Course myCourse = new Course(cName.Text, cTitle.Text, cInst.Text,
                         Convert.ToDouble(cCred.Text), Convert.ToInt16(cSeat.Text), timeblocks);
                     Courses.Add(myCourse);
