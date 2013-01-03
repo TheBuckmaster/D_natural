@@ -76,6 +76,8 @@ namespace BensCRS
         public String LastName { get; set; }
         public String MiddleName { get; set; }
         public String Advisor;
+        public bool hasConflicts { get { return !(CoursesThatConflict.Count == 0); } }
+        public List<String> CoursesThatConflict = new List<String>();
 
         public List<String> MyCourses = new List<String>();
         public List<PastCourse> MyPastCourses = new List<PastCourse>(); 
@@ -194,6 +196,7 @@ namespace BensCRS
     {
         private struct Meeting
         {
+            public String ddttk; // Source string. 
             public List<Char> days; //dd, translated
             public String time; //ttk, translated
         }
@@ -212,12 +215,13 @@ namespace BensCRS
         //public string BaseClass { get { return coursename.Substring(0, coursename.Length - 3); } }
         //public string Section { get { return coursename.Substring(coursename.Length - 2); } }
 
-        public String Meetingz { get; set; }   
+        public String Time { get; set; }   
         
 
         public Course()
         {
             Meeting meeting1;
+            meeting1.ddttk = "21201";
             meeting1.days = new List<char>();
             meeting1.days.Add('M');
             meeting1.days.Add('W');
@@ -247,7 +251,7 @@ namespace BensCRS
             credits = cCred;
             seats = cSeat;
             makeMeetings(timeblocks);
-            Meetingz = showMeetings();
+            Time = showMeetings();
             //MessageBox.Show(showMeetings().ToString()); 
         
         }
@@ -285,28 +289,58 @@ namespace BensCRS
             return studentNames; 
         }
 
+
+        /// <summary>
+        /// Returns true if there exists a conflict between the two courses and false otherwise.
+        /// </summary>
+        /// <param name="C">The course to compare meetings to.</param>
+        /// <returns></returns>
         public bool checkConflict(Course C)
         {
-            foreach (Meeting meet in Meetings)
+            foreach (Meeting Mn in Meetings)
             {
-                foreach (Meeting meet2 in C.Meetings)
+                foreach (Char dayn in Mn.days)
                 {
-                    foreach (char day in meet.days)
-
+                    foreach (Meeting Mx in C.Meetings)
                     {
-                        if (meet2.days.Contains(day))
+                        foreach (Char dayx in Mx.days)
                         {
-                            int start1 = int.Parse(meet.time.Substring(2, 2));
-                            int end1 = start1 + int.Parse(meet.time.Substring(4));
-                            int start2 = int.Parse(meet2.time.Substring(2, 2));
-                            int end2 = start1 + int.Parse(meet2.time.Substring(4));
-                            if (((start1 <= start2) && (end1 > start2)) || ((start2 <= start1) && (end2 > start1)))
-                                return true;
+                            if (dayx == dayn)
+                            {
+                                int t1 = int.Parse(Mn.ddttk.Substring(2));
+                                int t2 = int.Parse(Mx.ddttk.Substring(2));
+                                if (t1 == t2) //Does this course meet at exactly the same time
+                                //on this day? If so: conflict. 
+                                {
+                                    return true;
+                                }
+
+                                int tt1a = (t1 / 10);
+                                int tt1b = (t1 / 10) + t1 % 10;
+                                int tt2 = (t2 / 10);
+                                if ((tt2 > tt1a) && (tt2 < tt1b))
+                                {
+                                    //Does C start inside Course's time on this day? If so: conflict.
+                                    return true;
+                                }
+
+                                int tt2a = tt2;
+                                int tt2b = tt2 + t2 % 10;
+                                int tt1 = tt1a;
+                                if ((tt1 > tt2a) && (tt1 < tt2b))
+                                    //Does This course start inside C's time on this day? If so: conflict. 
+                                {
+                                    return true;
+                                }
+                                
+                            }
                         }
                     }
                 }
             }
-            return false;
+
+
+            return false; 
         }
 
         /// <summary>
@@ -319,6 +353,7 @@ namespace BensCRS
             {
                 
                 Meeting nth;
+                nth.ddttk = ddttks[i]; 
                 string dd = ddttks[i].Substring(0, 2);
                 string tt = ddttks[i].Substring(2, 2);
                 string k = ddttks[i].Substring(4, 1);
@@ -389,7 +424,8 @@ namespace BensCRS
                 else
                 {
                     postfix = "PM";
-                    timedouble -= 12.0; 
+                    if (timedouble != 12.0)
+                        timedouble -= 12.0; 
                 }
                 hourstring = timedouble.ToString();
 
