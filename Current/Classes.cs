@@ -416,9 +416,9 @@ namespace BensCRS
                     A += c;
                 A += " ";
                 A += M.time;
-                MessageBox.Show(A); 
+                //MessageBox.Show(A); 
                 output.Append(A);
-                output.Append('\n'); 
+                output.Append("\n"); 
             
             }
             //MessageBox.Show(output.ToString()); 

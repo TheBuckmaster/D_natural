@@ -65,6 +65,7 @@ namespace BensCRS
 
         private void CourseViewer()
         {
+            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridView1.Hide();
             dataGridView1.DataSource = Courses;
             dataGridView1.Refresh();
@@ -82,6 +83,7 @@ namespace BensCRS
                         stdCourses.Add(C0);
             }
 
+            dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True; 
             dataGridView1.DataSource = stdCourses;
             dataGridView1.Refresh();
             dataGridView1.Show(); 
