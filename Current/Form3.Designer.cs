@@ -78,9 +78,9 @@
             // 
             // RareButton
             // 
-            this.RareButton.Location = new System.Drawing.Point(333, 240);
+            this.RareButton.Location = new System.Drawing.Point(326, 240);
             this.RareButton.Name = "RareButton";
-            this.RareButton.Size = new System.Drawing.Size(115, 22);
+            this.RareButton.Size = new System.Drawing.Size(119, 23);
             this.RareButton.TabIndex = 4;
             this.RareButton.Text = "View Current";
             this.RareButton.UseVisualStyleBackColor = true;

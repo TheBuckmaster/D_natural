@@ -95,7 +95,7 @@ namespace BensCRS
 
             InitializeComponent();
             RareButton.Hide();
-            Sbutton.Hide();
+
 
                 //dataGridView1.Hide();
             if (FormState == FacFormState.studentsched)
@@ -103,11 +103,17 @@ namespace BensCRS
                 foreach (Course C0 in Crs)
                     if (little.MyCourses.Contains(C0.CourseName))
                         stdCourses.Add(C0);
+                Sbutton.Text = "Show Conflicts."; 
                 AButton.Text = "Back";
                 dataGridView1.DataSource = stdCourses;
+
+                if (!little.hasConflicts)
+                    Sbutton.Hide();
+
             }
             if (FormState == FacFormState.studentcurrent)
             {
+                Sbutton.Hide();
                 List<PastCourse> relevant = new List<PastCourse>();
                 foreach (PastCourse P in little.MyPastCourses)
                 {
@@ -193,6 +199,11 @@ namespace BensCRS
                 Form3 f = new Form3(Stud, MyStudents[dataGridView1.SelectedRows[0].Index],Me, Crs,0);
                 f.Show();
                 this.Close();
+            }
+
+            if (FormState == FacFormState.studentsched)
+            {
+                little.ShowConflicts();
             }
 
         }
