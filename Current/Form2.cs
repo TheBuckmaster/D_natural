@@ -102,7 +102,7 @@ namespace BensCRS
             {
                 bool conflict = false;
                 double creds = Courses[dataGridView1.SelectedRows[0].Index].credits;
-                List<String> ConflictCs = new List<String>();
+                List<UserStudent.conflictpair> localclist = new List<UserStudent.conflictpair>();
                 foreach (Course C in Courses)
                 {
                     if (StudentUser.MyCourses.Contains(C.CourseName))
@@ -110,9 +110,12 @@ namespace BensCRS
                         creds += C.credits;
                         if (C.checkConflict(Courses[dataGridView1.SelectedRows[0].Index]))
                         {
+                            UserStudent.conflictpair pair;
+                            pair.firstclass = Courses[dataGridView1.SelectedRows[0].Index].CourseName;
+                            pair.secondclass = C.CourseName; 
+                            localclist.Add(pair);
                             if (!conflict)
                                 conflict = true;
-                            ConflictCs.Add(C.CourseName);
                         }
                     }
                 }
@@ -126,14 +129,9 @@ namespace BensCRS
 
                 if (conflict)
                 {
-                    ConflictCs.Add(Courses[dataGridView1.SelectedRows[0].Index].CourseName);
-
-                    foreach (String CC in ConflictCs)
+                    foreach(UserStudent.conflictpair paire in localclist)
                     {
-                        if (StudentUser.CoursesThatConflict.Contains(CC))
-                            continue;
-                        else
-                            StudentUser.CoursesThatConflict.Add(CC);
+                        StudentUser.coursesthatConflict.Add(paire); 
                     }
 
                     MessageBox.Show("Course has a scheduling conflict!");
@@ -188,11 +186,7 @@ namespace BensCRS
 
         private void CButton_Click(object sender, EventArgs e)
         {
-            StringBuilder s0 = new StringBuilder();
-            foreach (String CourseName in StudentUser.CoursesThatConflict)
-                s0.Append(CourseName + " ");
-
-            MessageBox.Show(s0.ToString()); 
+            StudentUser.ShowConflicts();
         }
 
 

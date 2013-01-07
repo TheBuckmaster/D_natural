@@ -70,14 +70,21 @@ namespace BensCRS
 
     public class UserStudent
     {
+        public struct conflictpair
+        {
+            public string firstclass;
+            public string secondclass;
+        };
+
+
         public String UserName = "";
         private string password = "";
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String MiddleName { get; set; }
         public String Advisor;
-        public bool hasConflicts { get { return !(CoursesThatConflict.Count == 0); } }
-        public List<String> CoursesThatConflict = new List<String>();
+        public bool hasConflicts { get { return !(coursesthatConflict.Count == 0); } }
+        public List<conflictpair> coursesthatConflict = new List<conflictpair>(); 
 
         public List<String> MyCourses = new List<String>();
         public List<PastCourse> MyPastCourses = new List<PastCourse>(); 
@@ -165,6 +172,21 @@ namespace BensCRS
             }
 
             return total / creds;
+        }
+
+        /// <summary>
+        /// Sends a MessageBox for any conflicts the student's schedule has. 
+        /// </summary>
+        public void ShowConflicts()
+        {
+            StringBuilder s1 = new StringBuilder();
+
+            foreach (UserStudent.conflictpair pair in coursesthatConflict)
+            {
+                s1.Append(pair.firstclass + " conflicts with " + pair.secondclass + ".");
+            }
+            
+            MessageBox.Show(s1.ToString());
         }
     
     }
