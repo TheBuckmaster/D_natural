@@ -22,7 +22,8 @@ namespace BensCRS
 
             Courses = C;
             StudentUser = S1;
-            state = number; 
+            state = number;
+            CButton.Hide();
 
             if (state == 0)
             {
@@ -35,7 +36,7 @@ namespace BensCRS
                 RegisterButton.Text = "Un-Register from Selected Course"; 
                 LogoutButton.Text = "Return to Course List";
                 ScheduleButton.Text = "View Course History";
-
+                CButton.Show(); 
                 SchedViewer();
             
             }
@@ -183,6 +184,15 @@ namespace BensCRS
             {
                 this.Close(); 
             }
+        }
+
+        private void CButton_Click(object sender, EventArgs e)
+        {
+            StringBuilder s0 = new StringBuilder();
+            foreach (String CourseName in StudentUser.CoursesThatConflict)
+                s0.Append(CourseName + " ");
+
+            MessageBox.Show(s0.ToString()); 
         }
 
 

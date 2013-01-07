@@ -36,6 +36,7 @@
             this.CreditTxtBox = new System.Windows.Forms.TextBox();
             this.Credits = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.CButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,11 +123,22 @@
             this.label1.Text = "GPA";
             this.label1.Visible = false;
             // 
+            // CButton
+            // 
+            this.CButton.Location = new System.Drawing.Point(101, 247);
+            this.CButton.Name = "CButton";
+            this.CButton.Size = new System.Drawing.Size(133, 23);
+            this.CButton.TabIndex = 8;
+            this.CButton.Text = "View Conflicts";
+            this.CButton.UseVisualStyleBackColor = true;
+            this.CButton.Click += new System.EventHandler(this.CButton_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 284);
+            this.Controls.Add(this.CButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Credits);
             this.Controls.Add(this.CreditTxtBox);
@@ -153,6 +165,7 @@
         private System.Windows.Forms.TextBox CreditTxtBox;
         private System.Windows.Forms.Label Credits;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button CButton;
 
     }
 }
