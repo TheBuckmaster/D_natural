@@ -41,6 +41,7 @@
             this.YesButton = new System.Windows.Forms.Button();
             this.NoButton = new System.Windows.Forms.Button();
             this.ActualRegButton = new System.Windows.Forms.Button();
+            this.killButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -67,9 +68,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 409);
+            this.button1.Location = new System.Drawing.Point(101, 409);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(197, 23);
+            this.button1.Size = new System.Drawing.Size(108, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "View Courses";
             this.button1.UseVisualStyleBackColor = true;
@@ -93,6 +94,7 @@
             this.button3.TabIndex = 4;
             this.button3.Text = "Modify Faculty";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -102,6 +104,7 @@
             this.button4.TabIndex = 5;
             this.button4.Text = "Modify Course";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // dataGridView2
             // 
@@ -170,11 +173,22 @@
             this.ActualRegButton.UseVisualStyleBackColor = true;
             this.ActualRegButton.Click += new System.EventHandler(this.ActualRegButton_Click);
             // 
+            // killButton
+            // 
+            this.killButton.Location = new System.Drawing.Point(12, 409);
+            this.killButton.Name = "killButton";
+            this.killButton.Size = new System.Drawing.Size(88, 22);
+            this.killButton.TabIndex = 13;
+            this.killButton.Text = "Delete";
+            this.killButton.UseVisualStyleBackColor = true;
+            this.killButton.Click += new System.EventHandler(this.killButton_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 441);
+            this.Controls.Add(this.killButton);
             this.Controls.Add(this.ActualRegButton);
             this.Controls.Add(this.NoButton);
             this.Controls.Add(this.YesButton);
@@ -212,5 +226,6 @@
         private System.Windows.Forms.Button YesButton;
         private System.Windows.Forms.Button NoButton;
         private System.Windows.Forms.Button ActualRegButton;
+        private System.Windows.Forms.Button killButton;
     }
 }
