@@ -10,9 +10,9 @@ namespace BensCRS
     {
         public String UserName = "";
         private string password = "";
-        public String FirstName;
-        public String LastName;
-        public String MiddleName;
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+        public String MiddleName { get; set; }
 
         public List<String> MyClasses = new List<String>();  //CourseNames of my classes
 
