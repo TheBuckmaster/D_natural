@@ -42,6 +42,10 @@
             this.NoButton = new System.Windows.Forms.Button();
             this.ActualRegButton = new System.Windows.Forms.Button();
             this.killButton = new System.Windows.Forms.Button();
+            this.NoButton2 = new System.Windows.Forms.Button();
+            this.YesButton2 = new System.Windows.Forms.Button();
+            this.DetailBox2 = new System.Windows.Forms.TextBox();
+            this.TrueNo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -59,9 +63,11 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Cross;
             this.dataGridView1.Location = new System.Drawing.Point(12, 164);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(320, 239);
             this.dataGridView1.TabIndex = 1;
@@ -109,9 +115,11 @@
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Cursor = System.Windows.Forms.Cursors.Cross;
             this.dataGridView2.Location = new System.Drawing.Point(339, 164);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(335, 238);
             this.dataGridView2.TabIndex = 6;
@@ -177,17 +185,58 @@
             // 
             this.killButton.Location = new System.Drawing.Point(12, 409);
             this.killButton.Name = "killButton";
-            this.killButton.Size = new System.Drawing.Size(88, 22);
+            this.killButton.Size = new System.Drawing.Size(83, 23);
             this.killButton.TabIndex = 13;
             this.killButton.Text = "Delete";
             this.killButton.UseVisualStyleBackColor = true;
             this.killButton.Click += new System.EventHandler(this.killButton_Click);
+            // 
+            // NoButton2
+            // 
+            this.NoButton2.Location = new System.Drawing.Point(507, 313);
+            this.NoButton2.Name = "NoButton2";
+            this.NoButton2.Size = new System.Drawing.Size(119, 26);
+            this.NoButton2.TabIndex = 17;
+            this.NoButton2.Text = "Abort Changes";
+            this.NoButton2.UseVisualStyleBackColor = true;
+            this.NoButton2.Click += new System.EventHandler(this.NoButton2_Click);
+            // 
+            // YesButton2
+            // 
+            this.YesButton2.Location = new System.Drawing.Point(385, 313);
+            this.YesButton2.Name = "YesButton2";
+            this.YesButton2.Size = new System.Drawing.Size(116, 26);
+            this.YesButton2.TabIndex = 16;
+            this.YesButton2.Text = "Yes";
+            this.YesButton2.UseVisualStyleBackColor = true;
+            this.YesButton2.Click += new System.EventHandler(this.YesButton2_Click);
+            // 
+            // DetailBox2
+            // 
+            this.DetailBox2.Location = new System.Drawing.Point(385, 287);
+            this.DetailBox2.Name = "DetailBox2";
+            this.DetailBox2.Size = new System.Drawing.Size(241, 20);
+            this.DetailBox2.TabIndex = 15;
+            // 
+            // TrueNo
+            // 
+            this.TrueNo.Location = new System.Drawing.Point(385, 246);
+            this.TrueNo.Name = "TrueNo";
+            this.TrueNo.Size = new System.Drawing.Size(116, 26);
+            this.TrueNo.TabIndex = 18;
+            this.TrueNo.Text = "No";
+            this.TrueNo.UseVisualStyleBackColor = true;
+            this.TrueNo.Click += new System.EventHandler(this.TrueNo_Click);
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(685, 441);
+            this.Controls.Add(this.TrueNo);
+            this.Controls.Add(this.NoButton2);
+            this.Controls.Add(this.YesButton2);
+            this.Controls.Add(this.DetailBox2);
             this.Controls.Add(this.killButton);
             this.Controls.Add(this.ActualRegButton);
             this.Controls.Add(this.NoButton);
@@ -227,5 +276,9 @@
         private System.Windows.Forms.Button NoButton;
         private System.Windows.Forms.Button ActualRegButton;
         private System.Windows.Forms.Button killButton;
+        private System.Windows.Forms.Button NoButton2;
+        private System.Windows.Forms.Button YesButton2;
+        private System.Windows.Forms.TextBox DetailBox2;
+        private System.Windows.Forms.Button TrueNo;
     }
 }

@@ -482,6 +482,30 @@ namespace BensCRS
             //MessageBox.Show(output.ToString()); 
             return output.ToString(); 
         }
+
+        /// <summary>
+        /// This is a superpowered administrator function. 
+        /// Use with caution. 
+        /// </summary>
+        /// <param name="newCourseName"></param>
+        /// <param name="newCourseTitle"></param>
+        /// <param name="newInstructor"></param>
+        /// <param name="newCredits"></param>
+        /// <param name="newTimeBlocks"></param>
+        /// <param name="Admin">The responsible administrator.</param>
+        public void AdministerCourse(String newCourseName, String newCourseTitle, 
+            String newInstructor, Double newCredits, //List<String> newTimeBlocks, 
+            UserAdmin Admin)
+        {
+            coursename = newCourseName;
+            CourseTitle = newCourseTitle;
+            Instructor = newInstructor;
+            credits = newCredits;
+            //List<String> timeblocks = newTimeBlocks;
+            //makeMeetings(timeblocks);
+            Time = showMeetings();
+        }
+
     }
 
     public class PastCourse
